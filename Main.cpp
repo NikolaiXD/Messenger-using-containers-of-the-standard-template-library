@@ -128,22 +128,19 @@ public:
 
 class Chat
 {
-    Memory<Message>messages;
+    Memory<Message<string>> messages; // функцией берём данные
 public:
-    //функцией берём данные
     void sendMessage(const string& recepient, const string& send, const string& text)
-    {
-        //создаём обьект другого класса и наполняем
-        Message message1(recepient, send, text);
+    { // создаём обьект другого класса и наполняем
+        Message<string> message1(recepient, send, text); // помещаем в массив
 
-        messages.AddSms(message1);//помещаем в массив
-
-    };
+        messages.AddSms(message1);
+    }
 
     void DisplayMessages()
     {
         messages.Display();
-    };
+    }
 };
 
 
@@ -156,9 +153,9 @@ int main()
     hello();
 
 
-    MemoryUser<User>Tolpa;
+    MemoryUser<User<string>> Tolpa;
     //User Noubody;
-    User* currentUser = nullptr;
+    User<string>* currentUser = nullptr;
 
 
     cout << "Регистрация\n";
@@ -167,7 +164,7 @@ int main()
     cin >> username;
     cout << "Введите пароль: " << endl;
     cin >> password;
-    User First(username, password);
+    User<string> First(username, password);
     Tolpa.AddUsers(First);
     cout << "Вы успешно зарегистрировались!Теперь войдите в аккаунт." << endl;
 
@@ -224,7 +221,7 @@ int main()
                 cin >> password1;
 
                 for (int k = 0; k < Tolpa.getSize1(); k++) {
-                    User* user = Tolpa.getUser(k); // Получаем указатель на пользователя
+                    User<string>* user = Tolpa.getUser(k); // Получаем указатель на пользователя
                     if (user != nullptr && user->getName() == username1 && user->getPassword() == password1) {
                         currentUser = user; // Устанавливаем currentUser напрямую
                         cout << "Вы успешно вошли в аккаунт!" << endl;
@@ -246,7 +243,7 @@ int main()
                 cin >> username;
                 cout << "Введите пароль: " << endl;
                 cin >> password;
-                User newUser(username, password);
+                User<string> newUser(username, password);
                 Tolpa.AddUsers(newUser);
                 currentUser = Tolpa.getUser(Tolpa.getSize1() - 1); // Используем возвращаемый указатель
                 cout << "Вы успешно зарегистрировались!" << endl;
